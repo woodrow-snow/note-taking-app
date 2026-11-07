@@ -19,7 +19,7 @@ export class Note {
         return this.title
     }
 
-    setTitle(title:string) {
+    private setTitle(title:string) {
         this.title = title
     }
 
@@ -28,8 +28,17 @@ export class Note {
         return this.text
     }
 
-    setText(text: string) {
+    private setText(text: string) {
         this.text = text
+    }
+
+    updateNote(title: string = '', text: string = '') {
+        if (title) {
+            this.setTitle(title)
+        }
+        if (text) {
+            this.setText(text)
+        }
     }
 
     print() {

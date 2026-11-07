@@ -31,30 +31,26 @@ export const commands = {
             console.log("Which folder would you like to save your new note in?")
 
             // printing list of folders
-            dict.getFolders().forEach((f) => {
-                console.log(f.getFolderName())
-            })
+            this.displayFolders(dict)
 
             // getting user input
             console.log('(Please type out the name of the folder)')
-            const selectedFolder = await (await rl.question('> ')).toLowerCase().trim()
-            let selectedIndex: number = -1;
+            const selectedFolder = String(await rl.question('> ')).toLowerCase().trim()
 
             // getting 0 based index for selected folder
+            let counter = 0;
             dict.getFolders().forEach((f) => {
-                let counter = 0;
-                if (f.getFolderName().toLowerCase() == selectedFolder) {
-                    selectedIndex = counter
+                if (f.getFolderName().toLowerCase().trim() === selectedFolder) {
+                    // adding note and reporting to user
+                    dict.getFolders()[counter]?.addNote(newNote)
+                    const folderName: string = String(dict.getFolders()[counter]?.getFolderName())
+                    reportSavedNote(title, folderName)
                     return
                 } else {
                     counter++
                 }
             })
-
-            // adding note and reporting to user
-            dict.getFolders()[selectedIndex]?.addNote(newNote)
-            const folderName: string = String(dict.getFolders()[selectedIndex]?.getFolderName())
-            reportSavedNote('title', folderName)
+            console.log()
         }
     },
 
@@ -71,5 +67,106 @@ export const commands = {
 
         // reporting to user
         console.log(`Your new folder ${name} has been added to the directory!\n`)
+    },
+
+    async editNote(dict: Directory) {
+        // printing all folders and their notes
+        console.log("Please select the folder and note number for the note you would like to edit")
+        this.displayNoteAndFolderTitles(dict)
+        
+        // getting folder and note numbers
+        console.log('Which folder is the note in?')
+        const folderNum = Number(await rl.question('> ')) -1
+
+        console.log('What is the number for the note?')
+        const noteNum = Number(await rl.question('> ')) - 1
+        
+        // getting new title and text for note
+        console.log('What would you like to update the title to?')
+        console.log("(If you don't want to update the title, hit enter)")
+        const updatedTitle = await rl.question('> ')
+
+        console.log('What would you like to update the text to?')
+        console.log("(If you don't want to update the text, hit enter)")
+        const updatedText = await rl.question('> ')
+
+        // finding note in dict
+        dict.getFolder(folderNum)?.updateNote(noteNum, updatedTitle, updatedText)
+        
+        console.log('Your note has been updated\n')
+    },
+
+    displayNoteAndFolderTitles(dict: Directory) {
+        dict.printFolderAndNoteTitles()
+        console.log()
+    },
+
+    displayFolders(dict: Directory) {
+        dict.printFolders()
+        console.log()
+    },
+
+    async displayAllNotesInFolder(dict: Directory) {
+        // getting folder from user
+        console.log('Please select a folder from the following selection')
+        console.log('(Please enter in the number for the folder)')
+        this.displayFolders(dict)
+
+        const selectedFolderNum = await rl.question('> ');
+        console.log()
+
+        // getting folder from all folders
+        const folder = dict.getFolder(Number(selectedFolderNum) - 1)
+
+        // displaying all notes in folder
+        console.log(`All notes in the folder ${folder?.getFolderName()}`)
+        folder?.printNotes()
+        console.log()
+    },
+
+    displayHelp() {
+        console.log(`Here is a brief description of what each command does!
+            1. Creating a new note:
+                - running this command will allow you to create a new note and choose the folder you want it in!
+            2. Edit existing note:
+                - running this command will allow you to edit any exisitng note you have
+            3. Move note to a new folder:
+                - running this command will allow you to move a note from its current folder to a new one
+            4. Create a new folder:
+                - running this command will allow you to create a new folder to store notes in
+            5. View all folders:
+                - running this command will allow you to view all folders that you have created
+            6. View all folder and note titles:
+                - running this command will allow you to view all folders and the notes they contain (only their titles)
+            7. View all note titles:
+                - running this command will allow you to view all note titles within one title
+            8. Help:
+                - running this command will allow you to see this information again
+            9. Exit:
+                - running this command will allow you to exit the program `)
+    },
+
+    async moveNote(dict:Directory) {
+        // move note
+        // notify user
+
+        // getting OG folder and note id and new folder
+        console.log("Here are the names and titles of all folders and notes:")
+        this.displayNoteAndFolderTitles(dict)
+
+        console.log('What is the id for the orginial folder?')
+        const ogFolder = await Number(rl.question('> ')) - 1
+
+        console.log('What is the number for the note you want to move?')
+        const noteIndex = await Number(rl.question('> ')) - 1
+
+        console.log("Which folder would you like to move the note to?")
+        const newFolder = await Number(rl.question('> ')) - 1
+        
+        // moving note
+        dict.moveNote(ogFolder,noteIndex,newFolder)
+        
+        // notifying user
+        console.log("The requested note has been moved!")
     }
 }

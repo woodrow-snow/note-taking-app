@@ -19,7 +19,7 @@ export function checkFolders(folderList: Folder[]): boolean{
         return folder.getFolderName()
     })
 
-    const onlyDefault = () => { // function that filters out the default folder name and check if there is anything left
+    const isOnlyDefault = () => { // function that filters out the default folder name and check if there is anything left
         const remainingNames = allfolderTitles.filter((name) => {
             if (name != 'default') {
                 return name
@@ -33,12 +33,12 @@ export function checkFolders(folderList: Folder[]): boolean{
         }
     }
 
-    return onlyDefault();
+    return isOnlyDefault();
 }
 
 export async function displayMenu(dict: Directory) {
     console.log("Please choose an action from the list below!");
-    console.log("1. Create new note\n2. Edit existing note\n3. Move note to a new folder\n4. Create a new folder\n5. View all folders\n6. View all notes\n7. View all note titles\n8. Help\n9. Exit")
+    console.log("1. Create new note\n2. Edit existing note\n3. Move note to a new folder\n4. Create a new folder\n5. View all folders\n6. View all folder and note titles\n7. View all note titles in folder\n8. Help\n9. Exit")
 
     // getting user input
     const userInput = await rl.question('> ')
@@ -66,22 +66,25 @@ async function processMenuOption(dict:Directory, option: string) {
         await commands.createNewNote(dict);
     } else if (optNum == 2) {
         // edit existing note
+        await commands.editNote(dict);
     } else if (optNum == 3) {
         // Move Note to different folder
+        commands.moveNote(dict)
     } else if (optNum == 4) { 
         // Create a new folder
         await commands.createNewFolder(dict)
     } else if (optNum == 5) {
         // view all folders
+        commands.displayFolders(dict)
     } else if (optNum == 6) {
-        // view all notes
+        // view all folder and note titles
+        await commands.displayNoteAndFolderTitles(dict)
     } else if (optNum == 7) {
-        // view all note titles
+        // view all note titles in folder
+        await commands.displayAllNotesInFolder(dict)
     } else if (optNum == 8) {
         // help
-    } else if (optNum == 10) {
-        // secret testing option
-        console.log('hello')
+        commands.displayHelp()
     } else {
         // catch everything else
     }

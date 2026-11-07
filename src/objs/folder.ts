@@ -28,11 +28,15 @@ export class Folder {
         return this.folderName
     }
 
+    getNote(noteID:number) {
+        return this.notes[noteID];
+    }
+
     setFolderName(folderName:string) {
         this.folderName = folderName
     }
 
-    addNote(note: Note) {
+    addNote(note) {
         this.notes.push(note);
     }
 
@@ -58,5 +62,13 @@ export class Folder {
             current++
             this.printNotes(current)
         }
+    }
+
+    updateNote(noteIndex: number, title:string, text:string) {
+        this.notes[noteIndex]?.updateNote(title,text)
+    }
+
+    removeNote(noteId: number) {
+        this.notes.splice(noteId,1)
     }
 }
