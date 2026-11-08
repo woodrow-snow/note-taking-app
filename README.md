@@ -2,9 +2,9 @@
 
 {Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
 
-{Provide a description of the software that you wrote to demonstrate the TypeScript language.}
+This project allows a user to create, edit, and sort notes that have been added. It uses concepts like recursion, classes, lists, and asynchronous functions to make it happen. 
 
-{Describe your purpose for writing this software.}
+This project was developed in Typescript to help me gain a better understanding of the language and how it builds on top of JavaScript
 
 {Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
 
@@ -12,21 +12,19 @@
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+To develop this project, I used vscode and node.js. Node allows the code to run in the console.
 
-{Describe the programming language that you used and any libraries.}
+I used typescript, eslint, pnpm, and tsc
 
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
 
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Typescript] https://www.typescriptlang.org/docs/handbook/2/basic-types.html
+- [W3Schools] https://www.w3schools.com
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- add the ability to save the notes and folders you have added
+- add the ability to load notes and folders from a file
+- re-organize the menu to have sub sections to easier navigation
