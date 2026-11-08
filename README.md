@@ -1,7 +1,5 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
-
 This project allows a user to create, edit, and sort notes that have been added. It uses concepts like recursion, classes, lists, and asynchronous functions to make it happen. 
 
 This project was developed in Typescript to help me gain a better understanding of the language and how it builds on top of JavaScript
