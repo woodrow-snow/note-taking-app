@@ -6,15 +6,19 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "pnpm build && pnpm start"
+    "dev": "pnpm build && pnpm start",
+    "lint": "eslint src"
   },
   "keywords": [],
   "author": "Woodrow Snow",
   "license": "ISC",
   "packageManager": "pnpm@10.27.0",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.6",
-    "typescript": "^7.0.2"
+    "eslint": "^10.14.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
   },
   "type": "module"
 }
