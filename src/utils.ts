@@ -38,13 +38,13 @@ export function checkFolders(folderList: Folder[]): boolean{
 
 export async function displayMenu(dict: Directory) {
     console.log("Please choose an action from the list below!");
-    console.log("1. Create new note\n2. Edit existing note\n3. Move note to a new folder\n4. Create a new folder\n5. View all folders\n6. View all folder and note titles\n7. View all note titles in folder\n8. Help\n9. Exit")
+    console.log("1. Create new note\n2. Edit existing note\n3. View note\n4. Move note to a new folder\n5. Create a new folder\n6. View all folders\n7. View all folder and note titles\n8. View all note titles in folder\n9. Help\n10. Exit")
 
     // getting user input
     const userInput = await rl.question('> ')
     console.log()
 
-    if (userInput == '9') {
+    if (userInput == '10') {
         return true;
     } else {
         await processMenuOption(dict, userInput)
@@ -68,24 +68,28 @@ async function processMenuOption(dict:Directory, option: string) {
         // edit existing note
         await commands.editNote(dict);
     } else if (optNum == 3) {
+        // view note
+        await commands.viewNote(dict);
+    } else if (optNum == 4) {
         // Move Note to different folder
-        commands.moveNote(dict)
-    } else if (optNum == 4) { 
+        await commands.moveNote(dict)
+    } else if (optNum == 5) { 
         // Create a new folder
         await commands.createNewFolder(dict)
-    } else if (optNum == 5) {
+    } else if (optNum == 6) {
         // view all folders
         commands.displayFolders(dict)
-    } else if (optNum == 6) {
+    } else if (optNum == 7) {
         // view all folder and note titles
         await commands.displayNoteAndFolderTitles(dict)
-    } else if (optNum == 7) {
+    } else if (optNum == 8) {
         // view all note titles in folder
         await commands.displayAllNotesInFolder(dict)
-    } else if (optNum == 8) {
+    } else if (optNum == 9) {
         // help
         commands.displayHelp()
     } else {
         // catch everything else
+        console.log('That is not a valid input, please try again!\n')
     }
 }

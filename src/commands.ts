@@ -129,21 +129,23 @@ export const commands = {
             1. Creating a new note:
                 - running this command will allow you to create a new note and choose the folder you want it in!
             2. Edit existing note:
-                - running this command will allow you to edit any exisitng note you have
-            3. Move note to a new folder:
+                - running this command will allow you to edit any existing note you have
+            3. View note:
+                - running this command will allow you to view a single note of your choice
+            4. Move note to a new folder:
                 - running this command will allow you to move a note from its current folder to a new one
-            4. Create a new folder:
+            5. Create a new folder:
                 - running this command will allow you to create a new folder to store notes in
-            5. View all folders:
+            6. View all folders:
                 - running this command will allow you to view all folders that you have created
-            6. View all folder and note titles:
+            7. View all folder and note titles:
                 - running this command will allow you to view all folders and the notes they contain (only their titles)
-            7. View all note titles:
-                - running this command will allow you to view all note titles within one title
-            8. Help:
+            8. View all note titles:
+                - running this command will allow you to view all note titles within one folder
+            9. Help:
                 - running this command will allow you to see this information again
-            9. Exit:
-                - running this command will allow you to exit the program `)
+            10. Exit:
+                - running this command will allow you to exit the program`)
     },
 
     async moveNote(dict:Directory) {
@@ -155,18 +157,31 @@ export const commands = {
         this.displayNoteAndFolderTitles(dict)
 
         console.log('What is the id for the orginial folder?')
-        const ogFolder = await Number(rl.question('> ')) - 1
+        const ogFolder = await rl.question('> ')
 
         console.log('What is the number for the note you want to move?')
-        const noteIndex = await Number(rl.question('> ')) - 1
+        const noteIndex = await rl.question('> ')
 
         console.log("Which folder would you like to move the note to?")
-        const newFolder = await Number(rl.question('> ')) - 1
-        
+        const newFolder = await rl.question('> ')
+
         // moving note
-        dict.moveNote(ogFolder,noteIndex,newFolder)
+        dict.moveNote(Number(ogFolder)-1,Number(noteIndex)-1,Number(newFolder)-1)
         
         // notifying user
-        console.log("The requested note has been moved!")
-    }
+        console.log("The requested note has been moved!\n")
+    },
+
+    async viewNote(dict: Directory) {
+        this.displayNoteAndFolderTitles(dict)
+
+        // getting note and folder
+        console.log('Which note would you like to view?')
+        const folder = await rl.question('What is the number for the folder the note is in?\n> ')
+        const note = await rl.question('What is the number of the note you want to view?\n> ')
+
+        console.log()
+        dict.getFolder(Number(folder)-1)?.printNote(Number(note)-1)
+        console.log()
+    },
 }

@@ -36,7 +36,7 @@ export class Folder {
         this.folderName = folderName
     }
 
-    addNote(note) {
+    addNote(note:any) {
         this.notes.push(note);
     }
 
@@ -62,6 +62,10 @@ export class Folder {
             current++
             this.printNotes(current)
         }
+    }
+
+    printNote(noteID: number) {
+        this.notes[noteID]?.print()
     }
 
     updateNote(noteIndex: number, title:string, text:string) {
